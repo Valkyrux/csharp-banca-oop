@@ -84,6 +84,27 @@ namespace Esercizi
             }
             return totale;
         }
+
+        public List<Tuple<string, double>> AmmontarePrestitiPerCliente()
+        {
+            List<Tuple<string, double>> result = new List<Tuple<string, double>> ();
+            foreach (Prestito prestito in listaPrestiti)
+            {
+                var resocontoUtente = result.Find(t => (t.Item1) == prestito.codiceFiscaleIntestatario);
+                if(resocontoUtente != null)
+                {
+                    result.Remove(resocontoUtente);
+                    resocontoUtente = new Tuple<string, double>(prestito.codiceFiscaleIntestatario, resocontoUtente.Item2 + prestito.ammontare);
+                    result.Add(resocontoUtente);
+                }
+                else
+                {
+                    resocontoUtente = new Tuple<string, double>(prestito.codiceFiscaleIntestatario, prestito.ammontare);
+                    result.Add(resocontoUtente);
+                }
+            }
+            return result;
+        }
     }
 
     public class Cliente
