@@ -63,7 +63,7 @@ namespace Esercizi
 
         public bool aggiungiPrestito(string codiceFiscale, double cifra, double valoreRata, DateTime inizio, DateTime fine)
         {
-            if(listaClienti.Find(x => x.codiceFiscale == codiceFiscale) != null)
+            if(listaClienti.Exists(x => x.codiceFiscale == codiceFiscale))
             {
                 Prestito nuovoPrestito = new Prestito(codiceFiscale, cifra, valoreRata, inizio, fine);
                 this.listaPrestiti.Add(nuovoPrestito);
