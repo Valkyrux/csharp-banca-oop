@@ -6,6 +6,12 @@ namespace Esercizi
     {
         static void Main(string[] args)
         {
+            Universita universita = new Universita();
+            Console.WriteLine(universita.AggiungiStudente("ciro", "piero", "nardi", "02/30/2020", 10000));
+            Console.WriteLine(universita.AggiungiStudente("ciro", "piero", "nardi", "02/02/2020", 10000));
+            Console.WriteLine(universita.AggiungiStudente("ciro", "piero", "nardi", "02/02/2020", 10000));
+
+            /*
             Banca miaBanca = new Banca("pippo");
             miaBanca.aggiungiCliente("ciro", "grande", "grdcr12d5t490p", 4000);
             
@@ -22,7 +28,7 @@ namespace Esercizi
             Console.WriteLine(miaBanca.AmmontarePrestitiPerCliente().ToArray()[0]);
             
             Prestito mioPrestito = miaBanca.listaPrestiti[0];
-            Console.WriteLine(mioPrestito.giorniAllaScadenza());
+            Console.WriteLine(mioPrestito.giorniAllaScadenza());*/
         }
     }
 }

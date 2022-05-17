@@ -11,12 +11,12 @@
     public class Universita
     {
         List<string> leSedi;
-        List<Studente> lstStudenti;
+        Dictionary<string, Studente> lstStudenti;
 
         public Universita()
         {
             leSedi = new List<string>();
-            lstStudenti = new List<Studente>();
+            lstStudenti = new Dictionary<string, Studente>();
         }
 
         public void AggiungiSede(string sSede)
@@ -24,7 +24,7 @@
             leSedi.Add(sSede);
         }
 
-        public bool AggiungiStudente(string sNome, string sCognome, string sDataDiNascita, ulong uMatricola)
+        public bool AggiungiStudente(string sCodiceFiscale, string sNome, string sCognome, string sDataDiNascita, ulong uMatricola)
         {
             DateTime data;
 
@@ -40,7 +40,14 @@
             nuovoStudente.Matricola = uMatricola;
             nuovoStudente.dataDiNascita = data;
 
-            lstStudenti.Add(nuovoStudente);
+            if (!lstStudenti.ContainsKey(sCodiceFiscale))
+            {
+                lstStudenti.Add(sCodiceFiscale, nuovoStudente);
+            }
+            else
+            {
+                return false;
+            }
             
             return true;
         }
@@ -52,11 +59,11 @@
 
         public bool RimuoviStudente(ulong uMatricola)
         {
-            foreach (Studente studente in lstStudenti)
+            foreach ((string codiceFiscale, Studente studente) in lstStudenti)
             {
                 if(studente.Matricola == uMatricola)
                 {
-                    lstStudenti.Remove(studente);
+                    lstStudenti.Remove(codiceFiscale);
                     return true;
                 }
             }
@@ -77,7 +84,7 @@
         public void CercaStudente(int iAnno, out List<Studente> lMatchingList)
         {
             lMatchingList = new List<Studente>();
-            foreach(Studente studente in lstStudenti)
+            foreach((string codiceFiscale, Studente studente) in lstStudenti)
             {
                 int Anno = studente.dataDiNascita.Year;
                 if (iAnno == Anno)
@@ -85,11 +92,14 @@
             }
         }
 
+        //funzione per listStudente
+
+        /*
         public List<Studente> CercaStudente(int iAnno)
         {
             List<Studente> lMatchingList = new List<Studente>();
-            lMatchingList = lstStudenti.FindAll(t=>t.dataDiNascita.Year == iAnno);
+            lMatchingList = lstStudenti.FindAll(t => t.dataDiNascita.Year == iAnno);
             return lMatchingList;
-        }
+        }*/
     }
 }
